@@ -1,0 +1,8 @@
+{
+  "timeouts": {
+    "explicitWait": 60,
+    "assertWait": 30,
+    "pollingInterval": 500,
+    "newCommandTimeout": 300
+  }
+}

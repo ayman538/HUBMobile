@@ -1,0 +1,10 @@
+{
+  "platformName": "Android",
+  "appium:automationName": "UiAutomator2",
+  "appium:deviceName": "Ayman",
+  "appium:udid": "R9KX502TLYP",
+  "appium:appPackage": "com.sa.stc.blink.dev",
+  "appium:appActivity": "com.sa.stc.blink.presentation.home.HomeActivity",
+  "appium:noReset": true,
+  "appium:newCommandTimeout": 300
+}
