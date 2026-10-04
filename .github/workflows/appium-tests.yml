@@ -1,11 +1,13 @@
 name: Appium Mobile Tests
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-  mobile-test:
-    runs-on: [self-hosted, Windows, X64]
+  appium-tests:
+    runs-on: self-hosted
 
     steps:
       - name: Checkout Code
@@ -18,28 +20,20 @@ jobs:
           java-version: '17'
           cache: maven
 
-      - name: Check Java
-        run: java -version
-
-      - name: Check Maven
-        run: mvn -version
-
-      - name: Check ADB
+      - name: Check Android Device
         run: adb devices
 
-      - name: Check Appium
-        run: appium --version
-
-      - name: Start Appium
+      - name: Start Appium Server
         shell: powershell
         run: |
           Start-Process appium `
-            -ArgumentList "--address 127.0.0.1 --port 4723" `
+            -ArgumentList "--address 127.0.0.1 --port 4725" `
             -WindowStyle Hidden
+
           Start-Sleep -Seconds 5
 
-      - name: Run Search Employee Test
-        run: mvn -Dtest=HomeTest#searchForEmployee test
+      - name: Run Appium Test
+        run: mvn -Dtest=HomeTest#testSearch test
 
       - name: Upload Test Results
         if: always()
