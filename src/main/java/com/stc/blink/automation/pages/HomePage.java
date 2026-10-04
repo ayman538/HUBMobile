@@ -9,4 +9,16 @@ public class HomePage {
     public static final By SEARCH_ICON =
             AppiumBy.accessibilityId("search");
 
+    public static final By CANCEL_BUTTON =
+            AppiumBy.androidUIAutomator(
+                    "new UiSelector().text(\"Cancel\")"
+            );
+
+
+
+    public static final By SEARCH_EMPLOYEE =
+            AppiumBy.className("android.widget.EditText");
+
 }
+
+

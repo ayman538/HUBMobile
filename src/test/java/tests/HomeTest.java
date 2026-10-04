@@ -4,16 +4,20 @@ import base.BaseTest;
 import com.stc.blink.automation.actions.HomePageActions;
 import com.stc.blink.automation.pages.HomePage;
 import AssertUtils.AssertUtils;
+import io.appium.java_client.AppiumBy;
 import org.testng.annotations.Test;
 
 public class HomeTest extends BaseTest {
 
     @Test
-    public void testSearch() {
+    public void searchForEmployee() {
 
-        HomePageActions.clickSearch();
+        HomePageActions.SearchForuser("moghanem.c@stc.com.sa");
         AssertUtils.assertVisible(
-                HomePage.SEARCH_ICON
+                AppiumBy.androidUIAutomator(
+                        "new UiSelector().text(\"Moataz Samy Ghanem\")"
+                )
         );
+
     }
 }
