@@ -1,0 +1,49 @@
+name: Appium Mobile Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  mobile-test:
+    runs-on: [self-hosted, Windows, X64]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Check Java
+        run: java -version
+
+      - name: Check Maven
+        run: mvn -version
+
+      - name: Check ADB
+        run: adb devices
+
+      - name: Check Appium
+        run: appium --version
+
+      - name: Start Appium
+        shell: powershell
+        run: |
+          Start-Process appium `
+            -ArgumentList "--address 127.0.0.1 --port 4723" `
+            -WindowStyle Hidden
+          Start-Sleep -Seconds 5
+
+      - name: Run Search Employee Test
+        run: mvn -Dtest=HomeTest#searchForEmployee test
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: appium-test-results
+          path: target/surefire-reports/
